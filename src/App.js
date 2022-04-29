@@ -1,25 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [counters, setCounters] = useState([0]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {counters.map((item, index) => {
+        return (
+          <div>
+            <div className="counter">
+              <button
+                className="buttonNegative"
+                disabled={counters[index] <= 0 && true}
+                onClick={() => {
+                  const newCounters = [...counters];
+                  newCounters[index]--;
+                  setCounters(newCounters);
+                }}
+              >
+                -
+              </button>
+              {counters[index]}
+              <button
+                className="buttonPositive"
+                disabled={counters[index] >= 10 && true}
+                onClick={() => {
+                  const newCounters = [...counters];
+                  newCounters[index]++;
+                  setCounters(newCounters);
+                }}
+              >
+                +
+              </button>
+            </div>
+          </div>
+        );
+      })}
+
+      <button
+        className="addCounter"
+        onClick={() => {
+          const newCounters = [...counters];
+          newCounters.push(0);
+          setCounters(newCounters);
+        }}
+      >
+        Add counter
+      </button>
     </div>
   );
 }
 
 export default App;
+
+{
+  /* 
+
+
+
+<button
+className="reset"
+onClick={() => {
+  setCounters(0);
+}}
+>
+RESET
+</button> */
+}
